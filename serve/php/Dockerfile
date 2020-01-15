@@ -151,13 +151,38 @@ docker-php-source delete
 
 #add zookeeper todo
 #RUN docker-php-ext-install zookeeper
-COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
-RUN set -ex \
- && apk update && apk add --no-cache --virtual .build-deps autoconf g++ gcc make file \
- && mkdir -p  /usr/src/php/ext/zookeeper\
- && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
- && apk add libzookeeper-dev \
- && docker-php-ext-install zookeeper \
+#COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
+#RUN set -ex \
+# && apk update && apk add --no-cache --virtual .build-deps autoconf g++ gcc make file \
+# && mkdir -p  /usr/src/php/ext/zookeeper\
+# && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
+# && apk add libzookeeper-dev \
+# && docker-php-ext-install zookeeper \
+# && docker-php-ext-enable zookeeper
+
+RUN wget http://us.mirrors.quenda.co/apache/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz \
+&& tar -zxvf zookeeper-3.4.14.tar.gz \
+&& ( \
+   cd zookeeper-3.4.14  \
+   && ./zookeeper-client/zookeeper-client-c/configure -prefix=/usr/local/zookeeper \
+   && make \
+   && make install \
+) \
+&& rm zookeeper-3.4.14.tar.gz \
+&& rm -rf zookeeper-3.4.14
+# Zookeeper extension
+RUN wget http://pecl.php.net/get/zookeeper-0.6.4.tgz -O  zookeeper.tgz \
+ && mkdir -p zookeeper \
+ && tar -zxvf zookeeper.tgz \
+ && ( \
+	cd zookeeper-0.6.4 \
+	&& phpize \
+	&& ./configure --with-libzookeeper-dir=/usr/local/zookeeper \
+	&& make \
+	&& make install \
+  ) \
+ && rm -r zookeeper-0.6.4  \
+ && rm zookpeeper.tgz \
  && docker-php-ext-enable zookeeper
 
 #clear tmp
