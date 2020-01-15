@@ -81,10 +81,12 @@ RUN  mkdir -p  /usr/src/php/ext/solr\
 
 #add pdo odbc todo
 COPY ./extension/PDO_ODBC-1.0.1.tgz /tmp/extensions/PDO_ODBC-1.0.1.tgz
-RUN  mkdir -p  /usr/src/php/ext/PDO_ODBC\
-  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/PDO_ODBC  --strip 1 	\
-  && docker-php-ext-install PDO_ODBC \
-   && docker-php-ext-enable PDO_ODBC
+RUN  mkdir -p  /usr/src/php/ext/pdo_odbc\
+  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/pdo_odbc  --strip 1 	\
+   && apk add  tdsodbc unixodbc unixodbc-dev \
+   && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
+  && docker-php-ext-install pdo_odbc \
+   && docker-php-ext-enable pdo_odbc
 
 #add pdo pgsql todo
 COPY ./extension/PDO_PGSQL-1.0.2.tgz /tmp/extensions/PDO_PGSQL-1.0.2.tgz
