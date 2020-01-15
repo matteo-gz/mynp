@@ -57,7 +57,7 @@ RUN  mkdir -p  /usr/src/php/ext/amqp\
    && docker-php-ext-install amqp \
    && docker-php-ext-enable amqp
 RUN docker-php-ext-install zip
-RUN apk add --no-cache libsodium-dev
+RUN apk add --no-cache --virtua libsodium-dev curl-dev libxml2-dev 
 RUN  mkdir -p  /usr/src/php/ext/solr\
   && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
   && docker-php-ext-install solr \
