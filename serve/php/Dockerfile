@@ -24,7 +24,26 @@ RUN  mkdir -p  /usr/src/php/ext/xhprof\
    && mv /usr/src/php/ext/xhprof/extension/*   /usr/src/php/ext/xhprof/ \ 
    && docker-php-ext-install xhprof
 
-RUN docker-php-ext-install sysvshm sysvsem sysvmsg  shmop  gettext sockets calendar bcmath exif  mbstring mysqli pdo_mysql pcntl zip bz2 wddx xmlrpc xsl soap intl gd
+RUN docker-php-ext-install sysvshm
+RUN docker-php-ext-install sysvsem
+RUN docker-php-ext-install sysvmsg
+RUN docker-php-ext-install shmop
+RUN docker-php-ext-install gettext
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install calendar
+RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install bz2
+RUN docker-php-ext-install xmlrpc
+RUN docker-php-ext-install xsl
+RUN docker-php-ext-install soap
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install gd
 
 RUN rm /tmp/extensions -rf
 
