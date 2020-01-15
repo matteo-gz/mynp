@@ -80,20 +80,25 @@ RUN  mkdir -p  /usr/src/php/ext/solr\
    && docker-php-ext-enable solr
 
 #add pdo odbc todo
-COPY ./extension/PDO_ODBC-1.0.1.tgz /tmp/extensions/PDO_ODBC-1.0.1.tgz
-RUN  mkdir -p  /usr/src/php/ext/pdo_odbc\
-  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/pdo_odbc  --strip 1 	\
-   && apk add  tdsodbc unixodbc unixodbc-dev \
-   && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
-  && docker-php-ext-install pdo_odbc \
-   && docker-php-ext-enable pdo_odbc
+#COPY ./extension/PDO_ODBC-1.0.1.tgz /tmp/extensions/PDO_ODBC-1.0.1.tgz
+#RUN  mkdir -p  /usr/src/php/ext/pdo_odbc\
+#  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/pdo_odbc  --strip 1 	\
+#   && apk add  unixodbc unixodbc-dev \
+#   && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
+#  && docker-php-ext-install pdo_odbc \
+#   && docker-php-ext-enable pdo_odbc
 
 #add pdo pgsql todo
-COPY ./extension/PDO_PGSQL-1.0.2.tgz /tmp/extensions/PDO_PGSQL-1.0.2.tgz
-RUN  mkdir -p  /usr/src/php/ext/pgsql\
-  && tar -xvf PDO_PGSQL-1.0.2.tgz -C  /usr/src/php/ext/pgsql  --strip 1 	\
-  && docker-php-ext-install pgsql \
-   && docker-php-ext-enable pgsql
+RUN set -ex \
+  && apk --no-cache add \
+    postgresql-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql
+#COPY ./extension/PDO_PGSQL-1.0.2.tgz /tmp/extensions/PDO_PGSQL-1.0.2.tgz
+#RUN  mkdir -p  /usr/src/php/ext/pgsql\
+#  && tar -xvf PDO_PGSQL-1.0.2.tgz -C  /usr/src/php/ext/pgsql  --strip 1 	\
+#  && docker-php-ext-install pgsql \
+#   && docker-php-ext-enable pgsql
 #add apcu todo
 COPY ./extension/apcu-5.1.18.tgz /tmp/extensions/apcu-5.1.18.tgz
 RUN  mkdir -p  /usr/src/php/ext/apcu\
@@ -105,6 +110,7 @@ RUN  mkdir -p  /usr/src/php/ext/apcu\
 COPY ./extension/event-2.5.3.tgz /tmp/extensions/event-2.5.3.tgz
 RUN  mkdir -p  /usr/src/php/ext/event\
   && tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	\
+  && apk add  libevent-dev \
   && docker-php-ext-install event \
    && docker-php-ext-enable event
 
@@ -112,12 +118,14 @@ RUN  mkdir -p  /usr/src/php/ext/event\
 COPY ./extension/geoip-1.1.1.tgz /tmp/extensions/geoip-1.1.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/geoip\
   && tar -xvf geoip-1.1.1.tgz -C  /usr/src/php/ext/geoip  --strip 1 	\
+  && apk add geoip geoip-dev \
   && docker-php-ext-install geoip \
    && docker-php-ext-enable geoip
 #add imagick todo
 COPY ./extension/imagick-3.4.4.tgz /tmp/extensions/imagick-3.4.4.tgz
 RUN  mkdir -p  /usr/src/php/ext/imagick\
   && tar -xvf imagick-3.4.4.tgz -C  /usr/src/php/ext/imagick  --strip 1 	\
+ && apk add imagemagick-dev \
   && docker-php-ext-install imagick \
    && docker-php-ext-enable imagick
 #add inotify todo
@@ -133,17 +141,20 @@ RUN  mkdir -p  /usr/src/php/ext/mongodb\
   && docker-php-ext-install mongodb \
    && docker-php-ext-enable mongodb
 #add zendopcache todo
-COPY ./extension/zendopcache-7.0.5.tgz /tmp/extensions/zendopcache-7.0.5.tgz
-RUN  mkdir -p  /usr/src/php/ext/zendopcache\
-  && tar -xvf zendopcache-7.0.5.tgz -C  /usr/src/php/ext/zendopcache  --strip 1 	\
-  && docker-php-ext-install zendopcache \
-   && docker-php-ext-enable zendopcache
+RUN docker-php-ext-install opcache
+#COPY ./extension/zendopcache-7.0.5.tgz /tmp/extensions/zendopcache-7.0.5.tgz
+#RUN  mkdir -p  /usr/src/php/ext/zendopcache\
+ # && tar -xvf zendopcache-7.0.5.tgz -C  /usr/src/php/ext/zendopcache  --strip 1 	\
+ # && docker-php-ext-install zendopcache \
+ #  && docker-php-ext-enable zendopcache
 #add zookeeper todo
-COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
-RUN  mkdir -p  /usr/src/php/ext/zookeeper\
-  && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
-  && docker-php-ext-install zookeeper \
-   && docker-php-ext-enable zookeeper
+#RUN docker-php-ext-install zookeeper
+#COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
+#RUN  mkdir -p  /usr/src/php/ext/zookeeper\
+#  && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
+# && apk add libzookeeper-dev \
+#  && docker-php-ext-install zookeeper \
+#   && docker-php-ext-enable zookeeper
 
 #clear tmp
 RUN rm /tmp/extensions -rf
