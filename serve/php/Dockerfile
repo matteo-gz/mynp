@@ -8,6 +8,7 @@ RUN  apk add --update --no-cache \
 COPY ./extension /tmp/extemsions
 WORKDIR /tmp/extensions
 #add extension tideways_xhprof
+RUN set -xe
 RUN  mkdir -p  /usr/src/php/ext/tideways_xhprof\
    && cp /tmp/extensions/tideways_xhprof   /usr/src/php/ext/tideways_xhprof\
         && docker-php-ext-install tideways_xhprof
