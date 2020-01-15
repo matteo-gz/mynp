@@ -41,10 +41,6 @@ RUN  mkdir -p  /usr/src/php/ext/swoole\
    && docker-php-ext-install swoole \
    && docker-php-ext-enable swoole
 
-#RUN  mkdir -p  /usr/src/php/ext/solr\
- #  && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
- #  && docker-php-ext-install solr \
- #  && docker-php-ext-enable solr
 
 RUN  mkdir -p  /usr/src/php/ext/redis\
    && tar -xvf redis-5.1.1.tgz -C  /usr/src/php/ext/redis  --strip 1 	\
@@ -60,6 +56,12 @@ RUN  mkdir -p  /usr/src/php/ext/amqp\
    && tar -xvf amqp-1.9.4.tgz -C  /usr/src/php/ext/amqp  --strip 1 	\
    && docker-php-ext-install amqp \
    && docker-php-ext-enable amqp
+RUN docker-php-ext-install zip
+RUN apk add --no-cache libsodium-dev
+RUN  mkdir -p  /usr/src/php/ext/solr\
+  && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
+  && docker-php-ext-install solr \
+   && docker-php-ext-enable solr
 
 RUN rm /tmp/extensions -rf
 
