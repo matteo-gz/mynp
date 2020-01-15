@@ -41,16 +41,16 @@ RUN  mkdir -p  /usr/src/php/ext/swoole\
    && docker-php-ext-install swoole \
    && docker-php-ext-enable swoole
 
-RUN  mkdir -p  /usr/src/php/ext/solr\
-   && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
-   && docker-php-ext-install solr \
-   && docker-php-ext-enable solr
+#RUN  mkdir -p  /usr/src/php/ext/solr\
+ #  && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
+ #  && docker-php-ext-install solr \
+ #  && docker-php-ext-enable solr
 
 RUN  mkdir -p  /usr/src/php/ext/redis\
    && tar -xvf redis-5.1.1.tgz -C  /usr/src/php/ext/redis  --strip 1 	\
    && docker-php-ext-install redis \
    && docker-php-ext-enable redis
-
+RUN apk add --no-cache	libzip-dev 		rabbitmq-c-dev 		librdkafka-dev 
 RUN  mkdir -p  /usr/src/php/ext/rdkafka\
    && tar -xvf rdkafka-4.0.2.tgz -C  /usr/src/php/ext/rdkafka  --strip 1 	\
    && docker-php-ext-install rdkafka \
