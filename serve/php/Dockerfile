@@ -79,15 +79,6 @@ RUN  mkdir -p  /usr/src/php/ext/solr\
   && docker-php-ext-install solr \
    && docker-php-ext-enable solr
 
-#add pdo odbc todo
-#COPY ./extension/PDO_ODBC-1.0.1.tgz /tmp/extensions/PDO_ODBC-1.0.1.tgz
-#RUN  mkdir -p  /usr/src/php/ext/pdo_odbc\
-#  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/pdo_odbc  --strip 1 	\
-#   && apk add  unixodbc unixodbc-dev \
-#   && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
-#  && docker-php-ext-install pdo_odbc \
-#   && docker-php-ext-enable pdo_odbc
-
 #add pdo pgsql todo
 RUN set -ex \
   && apk --no-cache add \
@@ -139,14 +130,8 @@ RUN  mkdir -p  /usr/src/php/ext/mongodb\
 #add zendopcache
 RUN docker-php-ext-install opcache
 
-#add zookeeper todo
-#RUN docker-php-ext-install zookeeper
-#COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
-#RUN  mkdir -p  /usr/src/php/ext/zookeeper\
-#  && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
-# && apk add libzookeeper-dev \
-#  && docker-php-ext-install zookeeper \
-#   && docker-php-ext-enable zookeeper
+
+# add pdo odbc
 RUN set -ex; \
 docker-php-source extract; \
 { \
@@ -163,6 +148,18 @@ docker-php-ext-configure odbc --with-unixODBC=shared,/usr; \
 docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr; \
 docker-php-ext-install odbc pdo_odbc; \
 docker-php-source delete
+
+#add zookeeper todo
+#RUN docker-php-ext-install zookeeper
+COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
+RUN set -ex \
+ && apk update && apk add --no-cache --virtual .build-deps autoconf g++ gcc make file \
+ && mkdir -p  /usr/src/php/ext/zookeeper\
+ && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
+ && apk add libzookeeper-dev \
+ && docker-php-ext-install zookeeper \
+ && docker-php-ext-enable zookeeper
+
 #clear tmp
 RUN rm /tmp/extensions -rf
 
