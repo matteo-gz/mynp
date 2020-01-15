@@ -94,19 +94,15 @@ RUN set -ex \
     postgresql-dev
 
 RUN docker-php-ext-install pdo pdo_pgsql
-#COPY ./extension/PDO_PGSQL-1.0.2.tgz /tmp/extensions/PDO_PGSQL-1.0.2.tgz
-#RUN  mkdir -p  /usr/src/php/ext/pgsql\
-#  && tar -xvf PDO_PGSQL-1.0.2.tgz -C  /usr/src/php/ext/pgsql  --strip 1 	\
-#  && docker-php-ext-install pgsql \
-#   && docker-php-ext-enable pgsql
-#add apcu todo
+
+#add apcu
 COPY ./extension/apcu-5.1.18.tgz /tmp/extensions/apcu-5.1.18.tgz
 RUN  mkdir -p  /usr/src/php/ext/apcu\
   && tar -xvf apcu-5.1.18.tgz -C  /usr/src/php/ext/apcu  --strip 1 	\
   && docker-php-ext-install apcu \
    && docker-php-ext-enable apcu
 
-#add event todo
+#add event
 COPY ./extension/event-2.5.3.tgz /tmp/extensions/event-2.5.3.tgz
 RUN  mkdir -p  /usr/src/php/ext/event\
   && tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	\
@@ -114,39 +110,35 @@ RUN  mkdir -p  /usr/src/php/ext/event\
   && docker-php-ext-install event \
    && docker-php-ext-enable event
 
-#add geoip todo
+#add geoip
 COPY ./extension/geoip-1.1.1.tgz /tmp/extensions/geoip-1.1.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/geoip\
   && tar -xvf geoip-1.1.1.tgz -C  /usr/src/php/ext/geoip  --strip 1 	\
   && apk add geoip geoip-dev \
   && docker-php-ext-install geoip \
    && docker-php-ext-enable geoip
-#add imagick todo
+#add imagick
 COPY ./extension/imagick-3.4.4.tgz /tmp/extensions/imagick-3.4.4.tgz
 RUN  mkdir -p  /usr/src/php/ext/imagick\
   && tar -xvf imagick-3.4.4.tgz -C  /usr/src/php/ext/imagick  --strip 1 	\
  && apk add imagemagick-dev \
   && docker-php-ext-install imagick \
    && docker-php-ext-enable imagick
-#add inotify todo
+#add inotify
 COPY ./extension/inotify-2.0.0.tgz /tmp/extensions/inotify-2.0.0.tgz
 RUN  mkdir -p  /usr/src/php/ext/inotify\
   && tar -xvf inotify-2.0.0.tgz -C  /usr/src/php/ext/inotify  --strip 1 	\
   && docker-php-ext-install inotify \
    && docker-php-ext-enable inotify
-#add mongodb todo
+#add mongodb
 COPY ./extension/mongodb-1.6.1.tgz /tmp/extensions/mongodb-1.6.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/mongodb\
   && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 	\
   && docker-php-ext-install mongodb \
    && docker-php-ext-enable mongodb
-#add zendopcache todo
+#add zendopcache
 RUN docker-php-ext-install opcache
-#COPY ./extension/zendopcache-7.0.5.tgz /tmp/extensions/zendopcache-7.0.5.tgz
-#RUN  mkdir -p  /usr/src/php/ext/zendopcache\
- # && tar -xvf zendopcache-7.0.5.tgz -C  /usr/src/php/ext/zendopcache  --strip 1 	\
- # && docker-php-ext-install zendopcache \
- #  && docker-php-ext-enable zendopcache
+
 #add zookeeper todo
 #RUN docker-php-ext-install zookeeper
 #COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
@@ -155,8 +147,14 @@ RUN docker-php-ext-install opcache
 # && apk add libzookeeper-dev \
 #  && docker-php-ext-install zookeeper \
 #   && docker-php-ext-enable zookeeper
+RUN set -ex \
+  && apk --no-cache add \
+    unixodbc unixodbc-dev
+RUN docker-php-ext-install odbc pdo_odbc
 
 #clear tmp
 RUN rm /tmp/extensions -rf
 
 WORKDIR /www
+#amqp apcu bcmath bz2 calendar ctype curl dba dom enchant event exif ffi fileinfo filter ftp gd geoip gettext gmp hash iconv imagick imap inotify intl json ldap mbstring mongodb mysqli oci8 odbc opcache pcntl pdo pdo_dblib pdo_firebird pdo_mysql pdo_oci pdo_odbc pdo_pgsql pdo_sqlite pgsql phar posix pspell rdkafka readline redis reflection session shmop simplexml snmp soap sockets sodium solr spl standard
+ #swoole sysvmsg sysvsem sysvshm tideways_xhprof tidy tokenizer xhprof xml xmlreader xmlrpc xmlwriter xsl zend_test zip
