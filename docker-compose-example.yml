@@ -1,0 +1,33 @@
+version: "3"
+services:
+  php1:
+    build:
+      context: ./serve/php
+    container_name: php1
+    volumes:
+      - ${www_dir}:/www:rw
+      - ${php_php_conf_file}:/usr/local/etc/php/php.ini:ro
+      - ${php_fpm_conf_file}:/usr/local/etc/php-fpm.d/www.conf:rw
+    restart: always
+    ports:
+      - "9002:9000"
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
+
+  nginx1:
+    build:
+      context: ./serve/nginx
+    container_name: nginx1
+    volumes:
+      - ${www_dir}:/www/:rw
+      - ${nginx_confd_dir}:/etc/nginx/conf.d/:rw
+      - ./serve/nginx/index.html:/usr/share/nginx/html/index.html:rw
+      - ${nginx_conf_file}:/etc/nginx/nginx.conf:ro
+    restart: always
+
+    ports:
+      - "82:80"
+    networks:
+      - default

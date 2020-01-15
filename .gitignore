@@ -1,4 +1,5 @@
 log
 .env
 .idea
-docker-compose.yaml
+docker-compose.yml
+.env.example
