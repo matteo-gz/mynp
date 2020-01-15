@@ -2,4 +2,3 @@ log
 .env
 .idea
 docker-compose.yml
-.env.example

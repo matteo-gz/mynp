@@ -1,4 +1,4 @@
 ```
-cp env.txt  ./.env
+cp .env.example  ./.env
 cp docker-compose-example.yml ./docker-compose.yml 
 ```
