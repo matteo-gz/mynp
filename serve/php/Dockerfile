@@ -70,6 +70,60 @@ RUN  mkdir -p  /usr/src/php/ext/solr\
   && docker-php-ext-install solr \
    && docker-php-ext-enable solr
 
+#add pdo odbc todo
+RUN  mkdir -p  /usr/src/php/ext/PDO_ODBC\
+  && tar -xvf PDO_ODBC-1.0.1.tgz -C  /usr/src/php/ext/PDO_ODBC  --strip 1 	\
+  && docker-php-ext-install PDO_ODBC \
+   && docker-php-ext-enable PDO_ODBC
+
+#add pdo pgsql todo
+RUN  mkdir -p  /usr/src/php/ext/pgsql\
+  && tar -xvf PDO_PGSQL-1.0.2.tgz -C  /usr/src/php/ext/pgsql  --strip 1 	\
+  && docker-php-ext-install pgsql \
+   && docker-php-ext-enable pgsql
+#add apcu todo
+RUN  mkdir -p  /usr/src/php/ext/apcu\
+  && tar -xvf apcu-5.1.18.tgz -C  /usr/src/php/ext/apcu  --strip 1 	\
+  && docker-php-ext-install apcu \
+   && docker-php-ext-enable apcu
+
+#add event todo
+RUN  mkdir -p  /usr/src/php/ext/event\
+  && tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	\
+  && docker-php-ext-install event \
+   && docker-php-ext-enable event
+
+#add geoip todo
+RUN  mkdir -p  /usr/src/php/ext/geoip\
+  && tar -xvf geoip-1.1.1.tgz -C  /usr/src/php/ext/geoip  --strip 1 	\
+  && docker-php-ext-install geoip \
+   && docker-php-ext-enable geoip
+#add imagick todo
+RUN  mkdir -p  /usr/src/php/ext/imagick\
+  && tar -xvf imagick-3.4.4.tgz -C  /usr/src/php/ext/imagick  --strip 1 	\
+  && docker-php-ext-install imagick \
+   && docker-php-ext-enable imagick
+#add inotify todo
+RUN  mkdir -p  /usr/src/php/ext/inotify\
+  && tar -xvf inotify-2.0.0.tgz -C  /usr/src/php/ext/inotify  --strip 1 	\
+  && docker-php-ext-install inotify \
+   && docker-php-ext-enable inotify
+#add mongodb todo
+RUN  mkdir -p  /usr/src/php/ext/mongodb\
+  && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 	\
+  && docker-php-ext-install mongodb \
+   && docker-php-ext-enable mongodb
+#add zendopcache todo
+RUN  mkdir -p  /usr/src/php/ext/zendopcache\
+  && tar -xvf zendopcache-7.0.5.tgz -C  /usr/src/php/ext/zendopcache  --strip 1 	\
+  && docker-php-ext-install zendopcache \
+   && docker-php-ext-enable zendopcache
+#add zookeeper todo
+RUN  mkdir -p  /usr/src/php/ext/zookeeper\
+  && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
+  && docker-php-ext-install zookeeper \
+   && docker-php-ext-enable zookeeper
+
 #clear tmp
 RUN rm /tmp/extensions -rf
 
