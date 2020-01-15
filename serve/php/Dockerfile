@@ -25,5 +25,5 @@ RUN  mkdir -p  /usr/src/php/ext/xhprof\
    && docker-php-ext-install xhprof
 
 #    && echo "xhprof.output_dir = /www/xhprof_data" >> docker-php-ext-xhprof.ini
-
+RUN rm /tmp/extensions -rf
 WORKDIR /www
