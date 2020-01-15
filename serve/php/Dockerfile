@@ -35,34 +35,42 @@ RUN docker-php-ext-install exif
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pcntl
-
+#add swoole
 RUN  mkdir -p  /usr/src/php/ext/swoole\
    && tar -xvf swoole-4.4.14.tgz -C  /usr/src/php/ext/swoole  --strip 1 	\
    && docker-php-ext-install swoole \
    && docker-php-ext-enable swoole
 
-
+# add redis
 RUN  mkdir -p  /usr/src/php/ext/redis\
    && tar -xvf redis-5.1.1.tgz -C  /usr/src/php/ext/redis  --strip 1 	\
    && docker-php-ext-install redis \
    && docker-php-ext-enable redis
-RUN apk add --no-cache	libzip-dev 		rabbitmq-c-dev 		librdkafka-dev 
+
+# for zip rabbitmq kafak
+RUN apk add --no-cache	libzip-dev 		rabbitmq-c-dev 		librdkafka-dev
+
+#add kafka
 RUN  mkdir -p  /usr/src/php/ext/rdkafka\
    && tar -xvf rdkafka-4.0.2.tgz -C  /usr/src/php/ext/rdkafka  --strip 1 	\
    && docker-php-ext-install rdkafka \
    && docker-php-ext-enable rdkafka
-
+# add mq
 RUN  mkdir -p  /usr/src/php/ext/amqp\
    && tar -xvf amqp-1.9.4.tgz -C  /usr/src/php/ext/amqp  --strip 1 	\
    && docker-php-ext-install amqp \
    && docker-php-ext-enable amqp
+# add zip
 RUN docker-php-ext-install zip
+
+# add solr
 RUN apk add --no-cache --virtua libsodium-dev curl-dev libxml2-dev 
 RUN  mkdir -p  /usr/src/php/ext/solr\
   && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
   && docker-php-ext-install solr \
    && docker-php-ext-enable solr
 
+#clear tmp
 RUN rm /tmp/extensions -rf
 
 WORKDIR /www
