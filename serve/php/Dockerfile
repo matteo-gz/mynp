@@ -12,11 +12,13 @@ COPY ./extension /tmp/extensions
 WORKDIR /tmp/extensions
 
 #add extension tideways_xhprof
+# wget 'https://github.com/shenzhe/php-xhprof-extension/archive/master.tar.gz'
 RUN  mkdir -p  /usr/src/php/ext/tideways_xhprof\
    && tar -xvf tideways_xhprof.tar.gz -C  /usr/src/php/ext/tideways_xhprof  --strip 1 	\
    && docker-php-ext-install tideways_xhprof
 
 #add extension xhprof for php 7
+# wget 'https://github.com/longxinH/xhprof/archive/v2.1.3.tar.gz'
 RUN  mkdir -p  /usr/src/php/ext/xhprof\
    && tar -xvf xhprof.tar.gz -C  /usr/src/php/ext/xhprof  --strip 1 	\
    && mv /usr/src/php/ext/xhprof/extension/*   /usr/src/php/ext/xhprof/ \ 
