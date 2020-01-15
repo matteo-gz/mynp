@@ -5,7 +5,7 @@ RUN apk add git
 RUN  apk add --update --no-cache \
                graphviz \
                ttf-freefont
-COPY ./extension /tmp/extemsions
+COPY ./extension /tmp/extensions
 WORKDIR /tmp/extensions
 #add extension tideways_xhprof
 RUN set -xe
