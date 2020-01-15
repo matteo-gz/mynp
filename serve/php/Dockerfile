@@ -18,7 +18,8 @@ RUN  mkdir -p  /usr/src/php/ext/tideways_xhprof\
 
 #add extension xhprof for php 7
 RUN  mkdir -p  /usr/src/php/ext/xhprof\
-   && tar -xvf xhprof.tar.gz -C  /usr/src/php/ext/xhprof  --strip 1 	\
+   && tar -xvf xhprof.tar.gz -C  /usr/src/php/ext/xhprof_tmp  --strip 1 	\
+   && /usr/src/php/ext/extension /usr/src/php/ext/xhprof \
    && docker-php-ext-install xhprof
 
 #    && echo "xhprof.output_dir = /www/xhprof_data" >> docker-php-ext-xhprof.ini
