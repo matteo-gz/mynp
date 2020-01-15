@@ -28,22 +28,38 @@ RUN docker-php-ext-install sysvshm
 RUN docker-php-ext-install sysvsem
 RUN docker-php-ext-install sysvmsg
 RUN docker-php-ext-install shmop
-#RUN docker-php-ext-install gettext
 RUN docker-php-ext-install sockets
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install exif
-#RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pcntl
-#RUN docker-php-ext-install zip
-#RUN docker-php-ext-install bz2
-#RUN docker-php-ext-install xmlrpc
-#RUN docker-php-ext-install xsl
-#RUN docker-php-ext-install soap
-#RUN docker-php-ext-install intl
-#RUN docker-php-ext-install gd
+
+RUN  mkdir -p  /usr/src/php/ext/swoole\
+   && tar -xvf swoole-4.4.14.tgz -C  /usr/src/php/ext/swoole  --strip 1 	\
+   && docker-php-ext-install swoole \
+   && docker-php-ext-enable swoole
+
+RUN  mkdir -p  /usr/src/php/ext/solr\
+   && tar -xvf solr-2.5.0.tgz -C  /usr/src/php/ext/solr  --strip 1 	\
+   && docker-php-ext-install solr \
+   && docker-php-ext-enable solr
+
+RUN  mkdir -p  /usr/src/php/ext/redis\
+   && tar -xvf redis-5.1.1.tgz -C  /usr/src/php/ext/redis  --strip 1 	\
+   && docker-php-ext-install redis \
+   && docker-php-ext-enable redis
+
+RUN  mkdir -p  /usr/src/php/ext/rdkafka\
+   && tar -xvf rdkafka-4.0.2.tgz -C  /usr/src/php/ext/rdkafka  --strip 1 	\
+   && docker-php-ext-install rdkafka \
+   && docker-php-ext-enable rdkafka
+
+RUN  mkdir -p  /usr/src/php/ext/amqp\
+   && tar -xvf amqp-1.9.4.tgz -C  /usr/src/php/ext/amqp  --strip 1 	\
+   && docker-php-ext-install amqp \
+   && docker-php-ext-enable amqp
 
 RUN rm /tmp/extensions -rf
 
