@@ -24,6 +24,7 @@ RUN  mkdir -p  /usr/src/php/ext/xhprof\
    && mv /usr/src/php/ext/xhprof/extension/*   /usr/src/php/ext/xhprof/ \ 
    && docker-php-ext-install xhprof
 
-#    && echo "xhprof.output_dir = /www/xhprof_data" >> docker-php-ext-xhprof.ini
+
 RUN rm /tmp/extensions -rf
+RUN docker-php-ext-install sysvshm sysvsem sysvmsg  shmop  gettext sockets calendar bcmath exif  mbstring mysqli pdo_mysql pcntl zip bz2 wddx xmlrpc xsl soap intl gd
 WORKDIR /www
