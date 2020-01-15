@@ -147,11 +147,22 @@ RUN docker-php-ext-install opcache
 # && apk add libzookeeper-dev \
 #  && docker-php-ext-install zookeeper \
 #   && docker-php-ext-enable zookeeper
-RUN set -ex \
-  && apk --no-cache add \
-    unixodbc unixodbc-dev
-RUN docker-php-ext-install odbc pdo_odbc
-
+RUN set -ex; \
+docker-php-source extract; \
+{ \
+     echo '# https://github.com/docker-library/php/issues/103#issuecomment-271413933'; \
+     echo 'AC_DEFUN([PHP_ALWAYS_SHARED],[])dnl'; \
+     echo; \
+     cat /usr/src/php/ext/odbc/config.m4; \
+} > temp.m4; \
+mv temp.m4 /usr/src/php/ext/odbc/config.m4; \
+apk update; \
+apk add --no-cache unixodbc-dev; \
+rm -rf /var/lib/apt/lists/*; \
+docker-php-ext-configure odbc --with-unixODBC=shared,/usr; \
+docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr; \
+docker-php-ext-install odbc pdo_odbc; \
+docker-php-source delete
 #clear tmp
 RUN rm /tmp/extensions -rf
 
