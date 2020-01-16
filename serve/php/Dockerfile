@@ -154,14 +154,19 @@ RUN apk add  imap-dev \
 RUN apk add gmp-dev\
  &&  docker-php-ext-install gmp
 
- RUN docker-php-ext-install soap
+RUN docker-php-ext-install soap
 
- RUN apk add --no-cache icu-dev\
+RUN apk add --no-cache icu-dev\
  && docker-php-ext-install intl
 
  #gettext  extension (Alpine Linux)
- RUN apk add --no-cache gettext-dev\
+RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
+
+RUN  apk add --update \
+    		libevent-dev \
+    		openssl-dev \
+    && pecl install event
 
 #clear tmp
 RUN rm /tmp/extensions -rf
