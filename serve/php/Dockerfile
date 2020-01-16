@@ -124,7 +124,7 @@ RUN  mkdir -p  /usr/src/php/ext/inotify\
 #add mongodb
 COPY ./extension/mongodb-1.6.1.tgz /tmp/extensions/mongodb-1.6.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/mongodb\
-  && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 	d\
+  && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 \
   && docker-php-ext-install mongodb \
    && docker-php-ext-enable mongodb
 #add zendopcache
