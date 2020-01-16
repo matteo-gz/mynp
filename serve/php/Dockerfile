@@ -124,7 +124,7 @@ RUN  mkdir -p  /usr/src/php/ext/inotify\
 #add mongodb
 COPY ./extension/mongodb-1.6.1.tgz /tmp/extensions/mongodb-1.6.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/mongodb\
-  && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 	\
+  && tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 	d\
   && docker-php-ext-install mongodb \
    && docker-php-ext-enable mongodb
 #add zendopcache
@@ -147,6 +147,30 @@ docker-php-ext-configure odbc --with-unixODBC=shared,/usr; \
 docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr; \
 docker-php-ext-install odbc pdo_odbc; \
 docker-php-source delete
+
+RUN apk add  imap-dev \
+ && docker-php-ext-install imap
+
+RUN apk add gmp-dev\
+ &&  docker-php-ext-install gmp
+
+ RUN docker-php-ext-install soap
+
+ RUN apk add --no-cache icu-dev\
+ && docker-php-ext-install intl
+
+ #gettext  extension (Alpine Linux)
+ RUN apk add --no-cache gettext-dev\
+ &&  docker-php-ext-install gettext
+
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+   docker-php-ext-configure gd \
+     --with-gd \
+     --with-freetype-dir=/usr/include/ \
+     --with-png-dir=/usr/include/ \
+     --with-jpeg-dir=/usr/include/ && \
+   NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+   docker-php-ext-install -j${NPROC} gd
 
 #clear tmp
 RUN rm /tmp/extensions -rf
