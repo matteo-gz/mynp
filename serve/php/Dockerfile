@@ -79,7 +79,7 @@ RUN  mkdir -p  /usr/src/php/ext/solr\
   && docker-php-ext-install solr \
    && docker-php-ext-enable solr
 
-#add pdo pgsql todo
+#add pdo pgsql
 RUN set -ex \
   && apk --no-cache add \
     postgresql-dev
@@ -130,7 +130,6 @@ RUN  mkdir -p  /usr/src/php/ext/mongodb\
 #add zendopcache
 RUN docker-php-ext-install opcache
 
-
 # add pdo odbc
 RUN set -ex; \
 docker-php-source extract; \
@@ -149,45 +148,7 @@ docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr; \
 docker-php-ext-install odbc pdo_odbc; \
 docker-php-source delete
 
-#add zookeeper todo
-#RUN docker-php-ext-install zookeeper
-#COPY ./extension/zookeeper-0.7.2.tgz /tmp/extensions/zookeeper-0.7.2.tgz
-#RUN set -ex \
-# && apk update && apk add --no-cache --virtual .build-deps autoconf g++ gcc make file \
-# && mkdir -p  /usr/src/php/ext/zookeeper\
-# && tar -xvf zookeeper-0.7.2.tgz -C  /usr/src/php/ext/zookeeper  --strip 1 	\
-# && apk add libzookeeper-dev \
-# && docker-php-ext-install zookeeper \
-# && docker-php-ext-enable zookeeper
-
-RUN wget http://us.mirrors.quenda.co/apache/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz \
-&& tar -zxvf zookeeper-3.4.14.tar.gz \
-&& ( \
-   cd zookeeper-3.4.14  \
-   && ./zookeeper-client/zookeeper-client-c/configure -prefix=/usr/local/zookeeper \
-   && make \
-   && make install \
-) \
-&& rm zookeeper-3.4.14.tar.gz \
-&& rm -rf zookeeper-3.4.14
-# Zookeeper extension
-RUN wget http://pecl.php.net/get/zookeeper-0.6.4.tgz -O  zookeeper.tgz \
- && mkdir -p zookeeper \
- && tar -zxvf zookeeper.tgz \
- && ( \
-	cd zookeeper-0.6.4 \
-	&& phpize \
-	&& ./configure --with-libzookeeper-dir=/usr/local/zookeeper \
-	&& make \
-	&& make install \
-  ) \
- && rm -r zookeeper-0.6.4  \
- && rm zookpeeper.tgz \
- && docker-php-ext-enable zookeeper
-
 #clear tmp
 RUN rm /tmp/extensions -rf
 
 WORKDIR /www
-#amqp apcu bcmath bz2 calendar ctype curl dba dom enchant event exif ffi fileinfo filter ftp gd geoip gettext gmp hash iconv imagick imap inotify intl json ldap mbstring mongodb mysqli oci8 odbc opcache pcntl pdo pdo_dblib pdo_firebird pdo_mysql pdo_oci pdo_odbc pdo_pgsql pdo_sqlite pgsql phar posix pspell rdkafka readline redis reflection session shmop simplexml snmp soap sockets sodium solr spl standard
- #swoole sysvmsg sysvsem sysvshm tideways_xhprof tidy tokenizer xhprof xml xmlreader xmlrpc xmlwriter xsl zend_test zip
