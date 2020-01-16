@@ -16,7 +16,7 @@ services:
     networks:
       - default
 
-  nginx1:
+  nginx:
     build:
       context: ./serve/nginx
     container_name: nginx
