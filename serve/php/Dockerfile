@@ -162,6 +162,8 @@ RUN apk add --no-cache icu-dev\
  #gettext  extension (Alpine Linux)
 RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
+#RUN docker-php-ext-enable --ini-name docker-php-ext-zevent.ini event
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
 #clear tmp
 RUN rm /tmp/extensions -rf
 
