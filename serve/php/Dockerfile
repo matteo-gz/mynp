@@ -162,13 +162,6 @@ RUN apk add --no-cache icu-dev\
  #gettext  extension (Alpine Linux)
 RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
-
-COPY ./extension/event-2.5.3.tgz /tmp/extensions/event-2.5.3.tgz
-RUN  mkdir -p  /usr/src/php/ext/event\
-  && tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	\
-  && apk add  libevent-dev \
-  && docker-php-ext-install event \
-   && docker-php-ext-enable event
 #clear tmp
 RUN rm /tmp/extensions -rf
 
