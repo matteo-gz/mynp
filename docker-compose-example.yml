@@ -26,8 +26,7 @@ services:
       - ./serve/nginx/index.html:/usr/share/nginx/html/index.html:rw
       - ${nginx_conf_file}:/etc/nginx/nginx.conf:ro
     restart: always
-
     ports:
-      - "80:80"
+      - "${nginx_default_port}:80"
     networks:
       - default
