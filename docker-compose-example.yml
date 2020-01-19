@@ -2,12 +2,13 @@ version: "3"
 services:
   php:
     build:
-      context: ./serve/php
+      context: ./serve/php/completed
+    #      context: ./serve/php
     container_name: php
     volumes:
-      - ${www_dir}:/www:rw
-      - ${php_php_conf_file}:/usr/local/etc/php/php.ini:ro
-      - ${php_fpm_conf_file}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${WWW_DIR}:/www:rw
+      - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     ports:
       - "9000:9000"
@@ -21,12 +22,26 @@ services:
       context: ./serve/nginx
     container_name: nginx
     volumes:
-      - ${www_dir}:/www/:rw
-      - ${nginx_confd_dir}:/etc/nginx/conf.d/:rw
+      - ${WWW_DIR}:/www/:rw
+      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
       - ./serve/nginx/index.html:/usr/share/nginx/html/index.html:rw
-      - ${nginx_conf_file}:/etc/nginx/nginx.conf:ro
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
     restart: always
     ports:
-      - "${nginx_default_port}:80"
+      - "${NGINX_DEFAULT_PORT}:80"
     networks:
       - default
+  mysql:
+    image: mysql:5.7.29
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${MYSQL5_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${MYSQL5_DATA_DIR}:/var/lib/mysql/:rw
+    restart: always
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL5_ROOT_PASSWORD}"
+      TZ: "$TZ"

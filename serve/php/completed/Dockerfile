@@ -1,0 +1,1 @@
+FROM yazi/phpx:latest
