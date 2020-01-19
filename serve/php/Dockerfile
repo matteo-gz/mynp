@@ -166,6 +166,9 @@ RUN apk add --no-cache gettext-dev\
 RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN  apk add freetype-dev
+RUN   apk add jpeg-dev
+RUN apk add zlib-dev
 RUN  apk add libpng-dev \
   && docker-php-ext-install gd
 
