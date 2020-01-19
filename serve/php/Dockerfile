@@ -164,6 +164,11 @@ RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
 #RUN docker-php-ext-enable --ini-name docker-php-ext-zevent.ini event
 RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN  apk add libpng-dev \
+  && docker-php-ext-install gd
+
 #clear tmp
 RUN rm /tmp/extensions -rf
 
