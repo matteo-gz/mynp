@@ -1,4 +1,4 @@
-FROM php:7.4.1-fpm-alpine3.11
+FROM php:7.4.2-fpm-alpine3.11
 
 #add git
 RUN apk add git
