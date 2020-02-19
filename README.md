@@ -72,10 +72,6 @@ Zend OPcache
 zip
 zlib
 
-Xdebug
-Zend OPcache
-
-
 #### How to use it
 ```
 cp .env.example  ./.env #add default env for docker-compose
@@ -88,5 +84,8 @@ curl 127.0.0.1:80 # verify it
 - nginx version:1.17.7
 - mysql version:5.7.29
 
+### Docs
+- https://github.com/docker-library/php
+- [the compiled docker image of php](https://hub.docker.com/r/yazi/phpx)
 ## License
 This project is open-sourced software licensed under the  [Apache License](LICENSE)
