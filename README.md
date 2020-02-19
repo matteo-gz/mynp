@@ -2,7 +2,79 @@
 this is the php development environment just for php developer, the php version will keep latest and support common php extensions 
 
 #### Supported php extendsions
- core,date,libxml,openssl,pcre,sqlite3,zlib,ctype,curl,dom,fileinfo,filter,ftp,hash,iconv,json,mbstring,spl,pdo,pdo_sqlite,session,posix,readline,reflection,standard,simplexml,phar,tokenizer,xml,xmlreader,xmlwriter,mysqlnd,cgi-fcgi,amqp,apcu,bcmath,calendar,exif,gd,geoip,gettext,gmp,imagick,imap,inotify,intl,mongodb,mysqli,odbc,pcntl,pdo_mysql,pdo_odbc,pdo_pgsql,rdkafka,redis,shmop,soap,sockets,sodium,solr,swoole,sysvmsg,sysvsem,sysvshm,tideways_xhprof,xhprof,event,zip,zend opcache,xdebug
+amqp
+apcu
+bcmath
+calendar
+Core
+ctype
+curl
+date
+dom
+event
+exif
+fileinfo
+filter
+ftp
+gd
+geoip
+gettext
+gmp
+hash
+iconv
+imagick
+imap
+inotify
+intl
+json
+libxml
+mbstring
+mongodb
+mysqli
+mysqlnd
+odbc
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+PDO_ODBC
+pdo_pgsql
+pdo_sqlite
+Phar
+posix
+rdkafka
+readline
+redis
+Reflection
+session
+shmop
+SimpleXML
+soap
+sockets
+sodium
+solr
+SPL
+sqlite3
+standard
+swoole
+sysvmsg
+sysvsem
+sysvshm
+tideways_xhprof
+tokenizer
+xdebug
+xhprof
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+Xdebug
+Zend OPcache
+
 
 #### How to use it
 ```
