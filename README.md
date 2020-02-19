@@ -86,6 +86,9 @@ curl 127.0.0.1:80 # verify it
 
 ### Docs
 - https://github.com/docker-library/php
+- https://docs.docker.com/compose/compose-file/ 
+- https://docs.docker.com/engine/reference/builder/
 - [the compiled docker image of php](https://hub.docker.com/r/yazi/phpx)
+- [install docker for centos ](doc/installdocker.md)
 ## License
 This project is open-sourced software licensed under the  [Apache License](LICENSE)
