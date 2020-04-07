@@ -206,6 +206,7 @@ docker-php-source delete
 #add mongodb
 COPY ./extension/mongodb-1.6.1.tgz /tmp/extensions/mongodb-1.6.1.tgz
 RUN docker-php-source extract ;\
+mkdir -p /usr/src/php/ext/mongodb;\
 tar -xvf mongodb-1.6.1.tgz -C  /usr/src/php/ext/mongodb  --strip 1 ;\
 mkdir -p  /usr/src/php/ext/mongodb;\
 rm /tmp/extensions/mongodb-1.6.1.tgz;\
