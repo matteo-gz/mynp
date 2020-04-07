@@ -29,11 +29,11 @@ WORKDIR /tmp/extensions
 #add extension tideways_xhprof
 # wget 'https://github.com/shenzhe/php-xhprof-extension/archive/master.tar.gz'
 COPY ./extension/tideways_xhprof.tar.gz /tmp/extensions/tideways_xhprof.tar.gz
-RUN docker-php-source extract\
-mkdir -p  /usr/src/php/ext/tideways_xhprof\
-tar -xvf tideways_xhprof.tar.gz -C  /usr/src/php/ext/tideways_xhprof  --strip 1\
-rm -rf /tmp/extensions/tideways_xhprof.tar.gz\
-docker-php-ext-install tideways_xhprof\
+RUN docker-php-source extract;\
+mkdir -p  /usr/src/php/ext/tideways_xhprof;\
+tar -xvf tideways_xhprof.tar.gz -C  /usr/src/php/ext/tideways_xhprof  --strip 1;\
+rm -rf /tmp/extensions/tideways_xhprof.tar.gz;\
+docker-php-ext-install tideways_xhprof;\
 docker-php-source delete
 
 #RUN  mkdir -p  /usr/src/php/ext/tideways_xhprof\
