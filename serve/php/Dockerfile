@@ -1,4 +1,4 @@
-FROM php:7.4.2-fpm-alpine3.11
+FROM php:7.4.4-fpm-alpine3.11
 
 #add git
 RUN apk add git
@@ -44,11 +44,12 @@ RUN  mkdir -p  /usr/src/php/ext/xhprof\
 
 #add swoole
 COPY ./extension/swoole-4.4.14.tgz /tmp/extensions/swoole-4.4.14.tgz
-RUN  mkdir -p  /usr/src/php/ext/swoole\
-   && tar -xvf swoole-4.4.14.tgz -C  /usr/src/php/ext/swoole  --strip 1 	\
-   && docker-php-ext-install swoole \
-   && docker-php-ext-enable swoole
-
+RUN docker-php-source extract; \
+mkdir -p  /usr/src/php/ext/swoole;\
+tar -xvf /tmp/extensions/swoole-4.4.14.tgz  -C  /usr/src/php/ext/swoole  --strip 1;\
+rm /tmp/extensions/swoole-4.4.14.tgz -rf;\
+docker-php-ext-install swoole;\
+docker-php-source delete
 # add redis
 COPY ./extension/redis-5.1.1.tgz /tmp/extensions/redis-5.1.1.tgz
 RUN  mkdir -p  /usr/src/php/ext/redis\
