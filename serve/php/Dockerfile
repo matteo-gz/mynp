@@ -165,15 +165,11 @@ RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
 #RUN docker-php-ext-enable --ini-name docker-php-ext-zevent.ini event
 RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
+ #https://github.com/docker-library/php/issues/857
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-#
-#RUN  apk add freetype-dev
-#RUN   apk add jpeg-dev
-#RUN apk add zlib-dev
-#RUN  apk add libpng-dev \
-#  && docker-php-ext-install gd
 
+# add gd
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
   docker-php-ext-configure gd \
     --with-freetype=/usr/include/ \
@@ -181,9 +177,12 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
   NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
   docker-php-ext-install -j${NPROC} gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
+
+# add xdebug
 RUN apk add autoconf gcc g++ make && \
  pecl install xdebug
-RUN  docker-php-ext-enable xdebug 
+RUN  docker-php-ext-enable xdebug
+
 #clear tmp
 RUN rm /tmp/extensions -rf
 
