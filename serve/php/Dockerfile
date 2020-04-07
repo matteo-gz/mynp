@@ -181,9 +181,16 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
   docker-php-ext-install -j${NPROC} gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
 # add xdebug
-RUN apk add autoconf gcc g++ make && \
- pecl install xdebug
-RUN  docker-php-ext-enable xdebug
+COPY ./extension/xdebug-2.9.4.tar.gz /tmp/extensions/xdebug-2.9.4.tar.gz
+RUN docker-php-source extract ;\
+mkdir -p  /usr/src/php/ext/xdebug;\
+tar -xvf xdebug-2.9.4.tar.gz -C  /usr/src/php/ext/xdebug  --strip 1 	;\
+rm /tmp/extensions/xdebug-2.9.4.tar.gz;\
+docker-php-ext-enable xdebug;\
+docker-php-source delete
+#RUN apk add autoconf gcc g++ make && \
+# pecl install xdebug
+#RUN  docker-php-ext-enable xdebug
 #clear tmp
 RUN rm /tmp/extensions -rf
 WORKDIR /www
