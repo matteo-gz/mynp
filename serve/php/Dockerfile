@@ -153,6 +153,9 @@ tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	;\
 rm /tmp/extensions/event-2.5.3.tgz;\
 docker-php-ext-install event ;\
 docker-php-source delete
+#RUN docker-php-ext-enable --ini-name docker-php-ext-zevent.ini event
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
+ #https://github.com/docker-library/php/issues/857
 #
 #RUN  mkdir -p  /usr/src/php/ext/event\
 #  && tar -xvf event-2.5.3.tgz -C  /usr/src/php/ext/event  --strip 1 	\
@@ -252,9 +255,7 @@ RUN apk add --no-cache icu-dev\
  #gettext  extension (Alpine Linux)
 RUN apk add --no-cache gettext-dev\
  &&  docker-php-ext-install gettext
-#RUN docker-php-ext-enable --ini-name docker-php-ext-zevent.ini event
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-event.ini  /usr/local/etc/php/conf.d/docker-php-ext-zevent.ini
- #https://github.com/docker-library/php/issues/857
+
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
