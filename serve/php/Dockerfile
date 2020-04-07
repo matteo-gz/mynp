@@ -186,7 +186,8 @@ RUN docker-php-source extract ;\
 mkdir -p  /usr/src/php/ext/xdebug;\
 tar -xvf xdebug-2.9.4.tar.gz -C  /usr/src/php/ext/xdebug  --strip 1 	;\
 rm /tmp/extensions/xdebug-2.9.4.tar.gz;\
-docker-php-ext-enable xdebug;\
+docker-php-ext-configure --enable-xdebug;\
+docker-php-ext-install xdebug;\
 docker-php-source delete
 #RUN apk add autoconf gcc g++ make && \
 # pecl install xdebug
