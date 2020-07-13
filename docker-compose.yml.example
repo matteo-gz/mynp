@@ -17,6 +17,16 @@ services:
     networks:
       - default
 
+  php8:
+    build:
+      context: ./serve/php8
+    container_name: php8
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
+
   nginx:
     build:
       context: ./serve/nginx
