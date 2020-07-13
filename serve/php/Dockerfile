@@ -1,4 +1,4 @@
-FROM php:7.4.4-fpm-alpine3.11
+FROM php:7.4.8-fpm-alpine3.11
 #add git
 RUN apk add git
 # add graphviz for xhprof
