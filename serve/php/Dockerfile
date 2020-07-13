@@ -1,4 +1,5 @@
 FROM php:7.4.8-fpm-alpine3.11
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 #add git
 RUN apk add git
 # add graphviz for xhprof
