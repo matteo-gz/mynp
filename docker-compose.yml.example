@@ -22,6 +22,22 @@ services:
       context: ./serve/php8
     container_name: php8
     restart: always
+    volumes:
+      - ${WWW_DIR}:/www:rw
+      - ${PHP8_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP8_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
+
+  swoole:
+    build:
+      context: ./serve/swoole
+    container_name: swoole
+    restart: always
+    volumes:
+      - ${WWW_DIR}:/www:rw
     cap_add:
       - SYS_PTRACE
     networks:
