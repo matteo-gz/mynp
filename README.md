@@ -80,7 +80,7 @@ docker-compose up -d #change the dir to project and up it
 curl 127.0.0.1:80 # verify it
 ```
 ### general info
-- php version:7.4.2
+- php version:7.4.8
 - nginx version:1.17.7
 - mysql version:5.7.29
 

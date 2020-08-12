@@ -1,5 +1,5 @@
 FROM php:7.4.8-fpm-alpine3.11
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 #add git
 RUN apk add git
 # add graphviz for xhprof
@@ -195,4 +195,5 @@ docker-php-source delete
 #RUN  docker-php-ext-enable xdebug
 #clear tmp
 RUN rm /tmp/extensions -rf
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 WORKDIR /www
