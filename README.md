@@ -84,6 +84,10 @@ curl 127.0.0.1:80 # verify it
 - nginx version:1.17.7
 - mysql version:5.7.29
 
+#### helper
+- localhost:81 //portainer
+- localhost:19999 //netdata 
+
 ### Docs
 - https://github.com/docker-library/php
 - https://docs.docker.com/compose/compose-file/ 
