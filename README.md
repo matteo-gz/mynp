@@ -96,3 +96,6 @@ curl 127.0.0.1:80 # verify it
 - [install docker for centos ](doc/installdocker.md)
 ## License
 This project is open-sourced software licensed under the  [Apache License](LICENSE)
+
+#### Feature
+support php 8 And jit ,it will come ture
